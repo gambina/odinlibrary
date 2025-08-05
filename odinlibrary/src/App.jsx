@@ -1,11 +1,17 @@
 import { useState } from "react"
 //import { clsx } from "clsx"
+import Header from "./components/Header"
+import Main from "./components/Main"
 
 
 
 export default function App() {
 
 
-  return (<h1>h1 component</h1>
+  return (
+    <main>
+      <Header />
+      <Main />
+    </main>
   )
 }
