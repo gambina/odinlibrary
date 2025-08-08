@@ -58,7 +58,7 @@ div>p {
 
 .book-container {
   display: grid;
-  grid-template-columns: repeat(4, 160px);
+  grid-template-columns: repeat(6, 160px);
   grid-template-rows: repeat(2, 240px);
   gap: 10px;
 

@@ -11,17 +11,17 @@ import { nanoid } from "nanoid"
 // 4. new book button brings up the form allows user to input details - event.preventDefault() ve dialog
 // 5. add a button on each book to display to remove it from library - domelement
 // 6. toggle read
+// 7. Kitap silme tusu
 
 
 
-export default function Main(props) {
+export default function Main({ selected }) {
   const [book, setBook] = React.useState(startLibrary(bookData))
-
-
   const [formData, setFormData] = React.useState({
     name: "",
     author: "",
     read: false,
+    page: 0
   })
 
   function startLibrary(bookData) {
@@ -41,8 +41,16 @@ export default function Main(props) {
     }))
 
   }
+  // Filter based on `selected`
+  const filteredBooks = book.filter(item => {
+    if (selected === 1) return item.read;      // read
+    if (selected === 2) return !item.read;     // unread
+    return true;                               // all
+  });
 
-  const bookElements = book.map(item => (
+
+
+  const bookElements = filteredBooks.map(item => (
     <Book
       key={item.id}
       id={item.id}
@@ -63,9 +71,15 @@ export default function Main(props) {
   //  }
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
+
     setFormData(prev => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : type === "number"
+            ? Number(value)
+            : value,
     }));
   }
   function addNewBook() {
@@ -73,6 +87,7 @@ export default function Main(props) {
       name: formData.name.trim(),
       author: formData.author.trim(),
       read: formData.read,
+      page: formData.page,
       id: nanoid(),
     };
 
@@ -93,7 +108,6 @@ export default function Main(props) {
         <button onClick={() => dialogRef.current.showModal()} className="add-new-book">
           <img src="plusgreen.svg" alt="" />
         </button>
-        <div>{bookElements}</div>
         <dialog ref={dialogRef}>
           <form method="dialog" onSubmit={addNewBook}>
             <h2>Add a New Book</h2>
@@ -109,6 +123,13 @@ export default function Main(props) {
               name="author"
               placeholder="Author"
               value={formData.author}
+              onChange={handleChange}
+            />
+            <input
+              type="number"
+              name="page"
+              placeholder="page number"
+              value={formData.page}
               onChange={handleChange}
             />
             <label>
@@ -132,6 +153,7 @@ export default function Main(props) {
             </div>
           </form>
         </dialog>
+        {bookElements}
       </div>
     </main>
   </>)
