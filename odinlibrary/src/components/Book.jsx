@@ -5,7 +5,9 @@ export default function Book(props) {
     <button
       onClick={() => props.toggle(props.id)}
       className={props.read ? "read" : undefined}
-    > {props.name} {props.author} {props.page}
+    > <p>{props.name}</p>
+      <p>{props.author}</p>
+      <p>{props.page}</p>
     </button>
   )
 
