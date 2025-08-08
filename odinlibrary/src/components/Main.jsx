@@ -15,8 +15,10 @@ import { nanoid } from "nanoid"
 
 
 
-export default function Main({ selected }) {
+export default function Main(props) {
+  // This is how we fetch and change book data
   const [book, setBook] = React.useState(startLibrary(bookData))
+  // This is how the data for new books are collected
   const [formData, setFormData] = React.useState({
     name: "",
     author: "",
@@ -34,25 +36,25 @@ export default function Main({ selected }) {
     }));
 
   }
-
+  // Read - unread toggle
   function toggle(id) {
     setBook(prev => prev.map(item => {
       return item.id === id ? { ...item, read: !item.read } : item
     }))
 
   }
-  // Filter based on `selected`
+  // Filter based on 'selected'
   const filteredBooks = book.filter(item => {
-    if (selected === 1) return item.read;      // read
-    if (selected === 2) return !item.read;     // unread
+    if (props.selected === 1) return item.read;      // read
+    if (props.selected === 2) return !item.read;     // unread
     return true;                               // all
   });
 
-
+  // Delete book by filtering it out by the id
   function deleteBook(id) {
     setBook(prevBooks => prevBooks.filter(book => book.id !== id));
   }
-
+  // Create component for books with properties passed to Book.jsx
   const bookElements = filteredBooks.map(item => (
     <Book
       key={item.id}
@@ -66,13 +68,9 @@ export default function Main({ selected }) {
     />
   ));
 
-
+  // To get the dialog button(for collecting new book data) we start a reference
   const dialogRef = React.useRef(null);
-
-  //  function addNewBook(formData) {
-  //    const newBook = formData.get("book")
-  //    setBookObject(prev => [...prev, newBook])
-  //  }
+  // When filling the form, data needs to propogate
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
 
@@ -86,6 +84,7 @@ export default function Main({ selected }) {
             : value,
     }));
   }
+  // When form is submitted this fn triggers and data is stored in the places given
   function addNewBook() {
     const newBook = {
       name: formData.name.trim(),
@@ -94,16 +93,17 @@ export default function Main({ selected }) {
       page: formData.page,
       id: nanoid(),
     };
-
+    // Make sure to add the book to the list
     setBook(prevBooks => [...prevBooks, newBook]);
-
+    // Form is set to its initial values
     setFormData({ name: "", author: "", read: false });
-
+    // Reference is closed
     dialogRef.current.close();
   }
 
   return (<>
-    <main>
+    <main> {/*In this there are 3 same level items, add new book button,
+    dialog to open the form and listing the Book elements. They are wraped under book-container*/}
       <div className="book-container">
         <button onClick={() => dialogRef.current.showModal()} className="add-new-book">
           <img src="plusgreen.svg" alt="" />
