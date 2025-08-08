@@ -13,13 +13,13 @@ export default [
     read: true
   },
   {
-    name: "Third Whell",
-    author: "Camus",
+    name: "Strager",
+    author: "Albert Camus",
     page: 155,
     read: true
   },
   {
-    name: "LoTR - 2",
+    name: "LoTR - The Two Towers",
     author: "Tolkien",
     page: 780,
     read: false

@@ -49,6 +49,9 @@ export default function Main({ selected }) {
   });
 
 
+  function deleteBook(id) {
+    setBook(prevBooks => prevBooks.filter(book => book.id !== id));
+  }
 
   const bookElements = filteredBooks.map(item => (
     <Book
@@ -59,6 +62,7 @@ export default function Main({ selected }) {
       name={item.name}
       author={item.author}
       read={item.read}
+      deleteBook={deleteBook}
     />
   ));
 
@@ -93,14 +97,10 @@ export default function Main({ selected }) {
 
     setBook(prevBooks => [...prevBooks, newBook]);
 
-    // Clear the form after adding
     setFormData({ name: "", author: "", read: false });
 
     dialogRef.current.close();
   }
-
-
-  console.log(book)
 
   return (<>
     <main>
@@ -109,7 +109,7 @@ export default function Main({ selected }) {
           <img src="plusgreen.svg" alt="" />
         </button>
         <dialog ref={dialogRef}>
-          <form method="dialog" onSubmit={addNewBook}>
+          <form className="dialog-popup" method="dialog" onSubmit={addNewBook}>
             <h2>Add a New Book</h2>
             <input
               type="text"
