@@ -1,38 +1,33 @@
 export default [
 
   {
-    id: 1,
     name: "Ulysses",
     author: "James Joyce",
     page: 783,
     read: true
   },
   {
-    id: 2,
     name: "The Catcher in the Rye",
     author: "J.D. Salinger",
     page: 277,
     read: true
   },
   {
-    id: 3,
-    name: "The Catcher in the Rye",
-    author: "J.D. Salinger",
-    page: 277,
+    name: "Third Whell",
+    author: "Camus",
+    page: 155,
     read: true
   },
   {
-    id: 4,
-    name: "The Catcher in the Rye",
-    author: "J.D. Salinger",
-    page: 277,
-    read: true
+    name: "LoTR - 2",
+    author: "Tolkien",
+    page: 780,
+    read: false
   },
   {
-    id: 5,
-    name: "The Catcher in the Rye",
-    author: "J.D. Salinger",
-    page: 277,
+    name: "VALIS",
+    author: "PKD",
+    page: 320,
     read: true
   }
 ]

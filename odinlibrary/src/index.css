@@ -85,3 +85,8 @@ div>p {
 .add-new-book:hover img {
   transform: rotate(90deg);
 }
+
+.add-book-form {
+  display: flex;
+  flex-direction: column;
+}
